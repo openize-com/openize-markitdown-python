@@ -1,8 +1,8 @@
 import logging
-import os
 from pathlib import Path
 from .factory import ConverterFactory
 from .llm_strategy import SaveLocally, InsertIntoLLM
+
 
 class DocumentProcessor:
     def __init__(self, output_dir=Path("converted_md")):
@@ -22,3 +22,4 @@ class DocumentProcessor:
         if md_file:
             strategy = InsertIntoLLM() if insert_into_llm else SaveLocally()
             strategy.process(md_file)
+

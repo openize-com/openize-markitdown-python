@@ -10,6 +10,7 @@ from abc import ABC, abstractmethod
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 class DocumentConverter(ABC):
     @abstractmethod
     def convert_to_md(self, input_path, output_dir): pass

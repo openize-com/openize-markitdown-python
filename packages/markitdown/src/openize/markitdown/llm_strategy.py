@@ -1,8 +1,7 @@
 import logging
+from abc import abstractmethod, ABC
 
 import openai
-from abc import ABC, abstractmethod
-
 class LLMStrategy(ABC):
     @abstractmethod
     def process(self, md_file): pass
