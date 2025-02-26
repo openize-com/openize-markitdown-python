@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:  # Allows manual execution from GitHub Actions UI
 
 jobs:
   build-and-publish:
@@ -16,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: "3.10"
 
       - name: Install build tools
         run: |
@@ -24,7 +25,12 @@ jobs:
           python -m pip install build twine
 
       - name: Build package
-        run: python -m build
+        run: |
+          rm -rf dist  # Ensure a clean build
+          python -m build
+
+      - name: Mask API Token
+        run: echo "::add-mask::$TEST_PYPI_API_TOKEN"
 
       - name: Publish to TestPyPI
         env:
