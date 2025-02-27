@@ -34,10 +34,10 @@ from packages.markitdown.src.openize.markitdown.processor import DocumentProcess
 processor = DocumentProcessor()
 
 # Convert files and save locally
-processor.process_document("d://document.docx", insert_into_llm=False)
-processor.process_document("d://presentation.pptx", insert_into_llm=False)
-processor.process_document("d://spreadsheet.xlsx", insert_into_llm=False)
-processor.process_document("d://sample.pdf", insert_into_llm=False)
+processor.process_document("document.docx", insert_into_llm=False)
+processor.process_document("presentation.pptx", insert_into_llm=False)
+processor.process_document("spreadsheet.xlsx", insert_into_llm=False)
+processor.process_document("sample.pdf", insert_into_llm=False)
 ```
 
 ### Insert Markdown into LLM
