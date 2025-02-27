@@ -14,7 +14,7 @@ Openize.MarkItDown is a Python package that converts documents into Markdown for
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/Openize.MarkItDown.git
+   git clone https://github.com/openize-com/Openize.MarkItDown.git
    cd Openize.MarkItDown
    ```
 
