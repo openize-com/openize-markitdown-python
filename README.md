@@ -18,16 +18,10 @@ Openize.MarkItDown is a Python package that converts documents into Markdown for
    cd Openize.MarkItDown
    ```
 
-2. Install dependencies:
-
-   ```sh
-   pip install -r requirements.txt
-   ```
-
 3. (Optional) Install the package:
 
    ```sh
-   pip install .
+   pip install -i https://test.pypi.org/simple/ Openize.MarkItDown
    ```
 
 ## Usage
