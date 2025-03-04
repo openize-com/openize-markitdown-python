@@ -69,4 +69,6 @@ We appreciate your contributions and look forward to working with you!
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This wrapper is licensed under the MIT License. However, it depends on [CommercialLibrary](https://purchase.aspose.com/pricing/), which is a proprietary, closed-source library.
+
+⚠️ Users must obtain a valid license for [CommercialLibrary](https://purchase.aspose.com/pricing/) separately. This repository does not include or distribute any proprietary components.
