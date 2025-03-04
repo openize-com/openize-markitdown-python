@@ -3,9 +3,10 @@ import re
 import logging
 from pathlib import Path
 import aspose.words as aw
-import aspose.pdf as ap
 import aspose.cells as ac
 import aspose.slides as asl
+
+
 from abc import ABC, abstractmethod
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -32,9 +33,9 @@ class WordConverter(DocumentConverter):
 class PDFConverter(DocumentConverter):
     def convert_to_md(self, input_path, output_dir):
         try:
-            doc = ap.Document(str(input_path))
+            doc = aw.Document(str(input_path))
             output_file = output_dir / (input_path.stem + ".md")
-            doc.save(str(output_file), ap.SaveFormat.MARKDOWN)
+            doc.save(str(output_file), aw.SaveFormat.MARKDOWN)
             return output_file
         except Exception as e:
             logging.error(f"Error converting {input_path}: {e}")
@@ -58,3 +59,4 @@ class PowerPointConverter(DocumentConverter):
             return output_file
         except Exception as e:
             logging.error(f"Error converting {input_path}: {e}")
+

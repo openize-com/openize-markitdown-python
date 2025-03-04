@@ -11,8 +11,7 @@ setup(
     url="https://github.com/openize-com/openize-markitdown",
     packages=find_packages(),
     install_requires=[
-        "aspose-words",
-        "aspose-pdf",
+        "aspose-words",        
         "aspose-cells",
         "aspose-slides",
         "openai"
