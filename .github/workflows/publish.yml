@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - "v*"
-  workflow_dispatch:  # Allows manual execution from GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
@@ -27,7 +27,7 @@ jobs:
       - name: Build package
         working-directory: packages/markitdown/src  # Change to the correct directory
         run: |
-          rm -rf dist  # Ensure a clean build
+          rm -rf dist
           python -m build
 
       - name: Mask API Token
