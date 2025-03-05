@@ -25,7 +25,7 @@ jobs:
           python -m pip install build twine
 
       - name: Build package
-        working-directory: packages/markitdown/src  # Change to the correct directory
+        working-directory: packages/markitdown  # Change to the correct directory
         run: |
           rm -rf dist
           python -m build
@@ -34,7 +34,7 @@ jobs:
         run: echo "::add-mask::$TEST_PYPI_API_TOKEN"
 
       - name: Publish to TestPyPI
-        working-directory: packages/markitdown/src  # Change to the correct directory
+        working-directory: packages/markitdown # Change to the correct directory
         env:
           TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
