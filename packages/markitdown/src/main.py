@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-from packages.markitdown.src.openize.markitdown.processor import DocumentProcessor
+from openize.markitdown.processor import DocumentProcessor
 
 def run_conversion():
     processor = DocumentProcessor()
