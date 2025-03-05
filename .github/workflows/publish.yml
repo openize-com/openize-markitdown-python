@@ -37,4 +37,4 @@ jobs:
           TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           python -m twine upload --repository testpypi dist/* \
-            --username __token__ --password $TEST_PYPI_API_TOKEN
+            --username __token__ --password $TEST_PYPI_API_TOKEN  --verbose

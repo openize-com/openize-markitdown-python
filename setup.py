@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name="openize-markitdown",
-    version="0.1.0",
-    author="Openize",
-    author_email="packages@openize.com",
+    version="25.3.0",
+    author="Umar",
+    author_email="umar320@gmail.com",
     description="A document converter for Word, PDF, Excel, and PowerPoint to Markdown.",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
