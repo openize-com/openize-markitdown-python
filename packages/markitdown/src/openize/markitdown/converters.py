@@ -5,6 +5,7 @@ from pathlib import Path
 import aspose.words as aw
 import aspose.cells as ac
 import aspose.slides as asl
+from config import Config
 
 
 from abc import ABC, abstractmethod

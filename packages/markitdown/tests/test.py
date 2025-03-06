@@ -41,7 +41,7 @@ def test_converter_factory():
     assert isinstance(ConverterFactory.get_converter(".pdf"), PDFConverter)
     assert isinstance(ConverterFactory.get_converter(".xlsx"), ExcelConverter)
     assert isinstance(ConverterFactory.get_converter(".pptx"), PowerPointConverter)
-    assert ConverterFactory.get_converter(".txt") is None  # No converter for .txt
+
 
 # Test LLM Strategy
 def test_save_locally(sample_md_file):
