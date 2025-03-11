@@ -6,7 +6,7 @@ This package provides utilities to convert various document formats
 (.docx, .pdf, .xlsx, .pptx) to Markdown format.
 """
 
-__version__ = "25.3.6"
+__version__ = "25.3.7"
 
 from .processor import DocumentProcessor
 from .converters import WordConverter, PDFConverter, ExcelConverter, PowerPointConverter

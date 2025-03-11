@@ -1,7 +1,7 @@
 import os
 import configparser
 
-CONFIG_FILE = os.path.expanduser("setup.cfg")
+CONFIG_FILE = os.path.expanduser("../../../setup.cfg")
 
 def ask_license():
     """Prompt the user for license details after installation."""
