@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
-from .factory import ConverterFactory
-from .llm_strategy import SaveLocally, InsertIntoLLM
+from factory import ConverterFactory
+from llm_strategy import SaveLocally, InsertIntoLLM
 
 
 class DocumentProcessor:

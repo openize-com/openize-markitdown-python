@@ -1,4 +1,4 @@
-from .converters import WordConverter, PDFConverter, ExcelConverter, PowerPointConverter
+from converters import WordConverter, PDFConverter, ExcelConverter, PowerPointConverter
 
 
 class ConverterFactory:

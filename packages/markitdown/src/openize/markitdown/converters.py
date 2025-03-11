@@ -25,13 +25,13 @@ class DocumentConverter(ABC):
 class WordConverter(DocumentConverter):
     def convert_to_md(self, input_path, output_dir):
         try:
-            doc = aw.Document(input_path.resolve())
+            doc = aw.Document(str(input_path.resolve()))
             output_file = output_dir / f"{input_path.stem}.md"
             doc.save(str(output_file), aw.SaveFormat.MARKDOWN)
             return output_file
         except FileNotFoundError:
             logging.error(f"File not found: {input_path}")
-        except aw.FileFormatException:
+        except aw.FileCorruptedException:
             logging.error(f"Invalid Word file format: {input_path}")
         except Exception as e:
             logging.error(f"Error converting {input_path}: {e}")
@@ -39,13 +39,13 @@ class WordConverter(DocumentConverter):
 class PDFConverter(DocumentConverter):
     def convert_to_md(self, input_path, output_dir):
         try:
-            doc = aw.Document(input_path.resolve())
+            doc = aw.Document(str(input_path.resolve()))
             output_file = output_dir / f"{input_path.stem}.md"
             doc.save(str(output_file), aw.SaveFormat.MARKDOWN)
             return output_file
         except FileNotFoundError:
             logging.error(f"File not found: {input_path}")
-        except aw.FileFormatException:
+        except aw.FileCorruptedException:
             logging.error(f"Invalid PDF file format: {input_path}")
         except Exception as e:
             logging.error(f"Error converting {input_path}: {e}")
