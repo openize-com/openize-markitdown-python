@@ -2,21 +2,17 @@ import argparse
 from pathlib import Path
 from openize.markitdown.processor import DocumentProcessor
 
-def run_conversion():
+
+
+def run_conversion(input_file):
     processor = DocumentProcessor()
-
-    # Process PDF file
-    # processor.process_document("file.pdf", insert_into_llm=False)
-
-    # Process Word document (.docx)
-    # processor.process_document("example.docx", insert_into_llm=False)
-
-    # Process PowerPoint file (.pptx)
-    # processor.process_document("presentation.pptx", insert_into_llm=False)
-
-    # Process Excel file (.xlsx)
-    # processor.process_document("data.xlsx", insert_into_llm=False)
+    processor.process_document(input_file, insert_into_llm=False)
+    print(f"Conversion completed: {input_file}")
 
 if __name__ == "__main__":
-    run_conversion()
+    parser = argparse.ArgumentParser(description="Convert documents to Markdown.")
+    parser.add_argument("input_file", type=str, help="Path to the input file")
+    args = parser.parse_args()
+
+    run_conversion(args.input_file)
 
