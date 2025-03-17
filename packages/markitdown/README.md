@@ -52,55 +52,51 @@ markitdown document.docx
 markitdown document.docx -o output_folder
 
 # Process with an LLM (requires OPENAI_API_KEY environment variable)
-markitdown document.docx --llm
+markitdown document.docx -o output_folder --insert-into-llm
 ```
 
 ### Python API
 
 ```python
-from openize.markitdown import DocumentProcessor
+from _markitdown import MarkItDown
 
-# Initialize with custom output directory
-processor = DocumentProcessor(output_dir="my_markdown_files")
+# Define input file and output directory
+input_file = "report.pdf"
+output_dir = "output_markdown"
 
-# Convert files and save locally
-processor.process_document("document.docx")
-processor.process_document("presentation.pptx")
-processor.process_document("spreadsheet.xlsx")
-processor.process_document("sample.pdf")
+# Create MarkItDown instance
+converter = MarkItDown(output_dir)
 
-# Send to LLM for processing (requires OPENAI_API_KEY environment variable)
-processor.process_document("document.docx", insert_into_llm=True)
+# Convert document and send output to LLM
+converter.convert_document(input_file, insert_into_llm=True)
+
+print("Conversion completed and data sent to LLM.")
+
 ```
 
 ## Environment Variables
 
+- `ASPOSE_LICENSE_PATH`: Required when using the Aspose Paid APIs. This should be set to the full path of your Aspose license file.
 - `OPENAI_API_KEY`: Required when using the `insert_into_llm=True` option or the `--llm` flag.
+- `OPENAI_MODEL`: Specifies the OpenAI model name (default: `gpt-4`).
 
-## Running Tests
+To set these variables:
 
-```sh
-# Install test dependencies
-pip install pytest pytest-mock
+For Unix-based systems:
 
-# Run the tests
-pytest
+```bash
+export ASPOSE_LICENSE_PATH="/path/to/license"
+export OPENAI_API_KEY="your-api-key"
+export OPENAI_MODEL="gpt-4"
 ```
 
-## Contributing  
+For Windows (PowerShell):
 
-We appreciate your interest in contributing to this project! To ensure a smooth collaboration, please follow these steps when submitting a pull request:  
+```powershell
+$env:ASPOSE_LICENSE_PATH = "C:\path\to\license"
+$env:OPENAI_API_KEY = "your-api-key"
+$env:OPENAI_MODEL = "gpt-4"
+```
 
-1. **Fork & Clone** – Fork the repository and clone it to your local machine.  
-2. **Create a Branch** – Use a new branch for your contribution.  
-3. **Sign the Contributor License Agreement (CLA)** – Before your first contribution can be accepted, you must sign our CLA via [CLA Assistant](https://cla-assistant.io). You will be prompted to sign it when submitting your first pull request. You can also review the CLA here: [https://cla.openize.com/agreement](https://cla.openize.com/agreement).  
-4. **Submit a Pull Request (PR)** – Once your changes are ready, open a PR with a clear description.  
-5. **Review & Feedback** – Our maintainers will review your PR and provide feedback if needed.  
 
-By contributing, you agree to the terms of the CLA and confirm that your changes comply with the project's licensing policies.  
 
-## License
-
-This package is licensed under the MIT License. However, it depends on Aspose libraries, which are proprietary, closed-source libraries.
-
-⚠️ Users must obtain a valid license for Aspose libraries separately. This repository does not include or distribute any proprietary components.

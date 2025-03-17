@@ -2,9 +2,8 @@ import argparse
 import os
 import sys
 import logging
-from processor import DocumentProcessor
+from _markitdown import MarkItDown
 from license_manager import LicenseManager
-from llm_strategy import InsertIntoLLM
 
 
 def ask_user_boolean(question):
@@ -19,12 +18,12 @@ def ask_user_boolean(question):
             print("Invalid input. Please enter 'yes' or 'no'.")
 
 
-def ensure_env_variable(var_name, prompt_message):
+def ensure_env_variable(var_name, prompt_message, default=None):
     """Ensure an environment variable is set, otherwise ask the user and persist it."""
     value = os.getenv(var_name)
 
     if not value:
-        value = input(prompt_message).strip()
+        value = input(prompt_message).strip() or default
         if value:
             set_env_variable(var_name, value)
         else:
@@ -44,44 +43,35 @@ def set_env_variable(var_name, value):
         os.system(f'echo "export {var_name}={value}" >> ~/.profile')
 
 
-def run_conversion(input_file, output_dir, insert_into_llm=False):
-    """Handle license setup, document processing, and optional LLM integration."""
-
-    # Ask user if they want to use Aspose Paid APIs
-    use_aspose = ask_user_boolean("Do you want to use the Aspose Paid APIs?")
-
-    if use_aspose:
-        ensure_env_variable("ASPOSE_LICENSE_PATH", "Enter the full path of your Aspose license file: ")
-        license_manager = LicenseManager()
-        license_manager.apply_license()
-        # Only ask for OpenAI credentials if --insert-into-llm was specified
-
-    if insert_into_llm:
-        ensure_env_variable("OPENAI_API_KEY", "Enter your OpenAI API key: ")
-        ensure_env_variable("OPENAI_MODEL", "Enter OpenAI model name (default: gpt-4): ")
-
-
-
-    processor = DocumentProcessor(output_dir)
-    processor.process_document(input_file, insert_into_llm)
-
-
-
-
 def main():
     """Entry point for the CLI tool."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
     parser = argparse.ArgumentParser(description="Convert documents to Markdown.")
     parser.add_argument("input_file", help="Path to the input document (PDF, Word, etc.)")
-    parser.add_argument("output_dir", help="Directory to save the converted Markdown file")
+    parser.add_argument("-o", "--output-dir", required=True, help="Directory to save the converted Markdown file")
     parser.add_argument("--insert-into-llm", action="store_true", help="Insert output into LLM")
 
     args = parser.parse_args()
 
     try:
-        run_conversion(args.input_file, args.output_dir, args.insert_into_llm)
+        # Setup Aspose License if needed
+        if ask_user_boolean("Do you want to use the Aspose Paid APIs?"):
+            license_path = ensure_env_variable("ASPOSE_LICENSE_PATH", "Enter the full path of your Aspose license file: ")
+            if license_path:
+                LicenseManager().apply_license()
+
+        # Setup LLM credentials only if required
+        if args.insert_into_llm:
+            ensure_env_variable("OPENAI_API_KEY", "Enter your OpenAI API key: ")
+            ensure_env_variable("OPENAI_MODEL", "Enter OpenAI model name (default: gpt-4): ", default="gpt-4")
+
+        # Run conversion
+        markitdown = MarkItDown(args.output_dir)
+        markitdown.convert_document(args.input_file, args.insert_into_llm)
+
     except Exception as e:
-        print(f"Error: {e}")
-        logging.error(e)
+        logging.error(f"Error: {e}", exc_info=True)
         sys.exit(1)
 
 
