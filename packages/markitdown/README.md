@@ -35,8 +35,8 @@ pip install -i https://test.pypi.org/simple/ openize-markitdown
 ### From Source
 
 ```sh
-git clone https://github.com/openize-com/Openize.MarkItDown.git
-cd Openize.MarkItDown
+git clone https://github.com/openize-com/openize-markitdown.git
+cd openize-markitdown
 pip install -e .
 ```
 
@@ -95,5 +95,10 @@ $env:OPENAI_API_KEY = "your-api-key"
 $env:OPENAI_MODEL = "gpt-4"
 ```
 
+## License
+
+This package is licensed under the MIT License. However, it depends on Aspose libraries, which are proprietary, closed-source libraries.
+
+⚠️ Users must obtain a valid license for Aspose libraries separately. This repository does not include or distribute any proprietary components.
 
 
