@@ -36,8 +36,8 @@ pip install -i https://test.pypi.org/simple/ openize-markitdown
 
 ```sh
 git clone https://github.com/openize-com/openize-markitdown.git
-cd openize-markitdown
-pip install -e .
+cd openize-markitdown\packages\markitdown
+pip install -e . --verbose
 ```
 
 ## Usage

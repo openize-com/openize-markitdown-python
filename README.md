@@ -32,14 +32,6 @@ You'll need to obtain valid licenses for these libraries separately. The package
 pip install -i https://test.pypi.org/simple/ openize-markitdown
 ```
 
-### From Source
-
-```sh
-git clone https://github.com/openize-com/openize-markitdown.git
-cd openize-markitdown
-pip install -e .
-```
-
 ## Usage
 
 ### Command Line Interface
