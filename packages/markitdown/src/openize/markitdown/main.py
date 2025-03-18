@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 import logging
-from _markitdown import MarkItDown
+from markitdown import MarkItDown
 from license_manager import LicenseManager
 
 
