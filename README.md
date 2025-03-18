@@ -46,13 +46,10 @@ pip install -e .
 
 ```sh
 # Convert a file and save locally
-markitdown document.docx
-
-# Specify output directory
 markitdown document.docx -o output_folder
 
 # Process with an LLM (requires OPENAI_API_KEY environment variable)
-markitdown document.docx --llm
+markitdown document.docx -o output_folder --insert_into_llm
 ```
 
 ### Python API
