@@ -58,7 +58,7 @@ markitdown document.docx --llm
 ### Python API
 
 ```python
-from _markitdown import MarkItDown
+from openize.markitdown.core import MarkItDown
 
 # Define input file and output directory
 input_file = "report.pdf"
