@@ -3,7 +3,7 @@ import os
 
 sys.path.append(os.path.dirname(__file__))
 
-__version__ = "25.3.15"
+__version__ = "25.3.16"
 
 from .processor import DocumentProcessor
 from .converters import WordConverter, PDFConverter, ExcelConverter, PowerPointConverter
