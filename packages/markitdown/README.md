@@ -1,6 +1,6 @@
 # Openize.MarkItDown
 
-![Python Version](https://img.shields.io/badge/python-3.7--3.12-blue)
+![Python Version](https://img.shields.io/badge/python-3.12+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 
@@ -29,7 +29,7 @@ You'll need to obtain valid licenses for these libraries separately. The package
 ### From TestPyPI
 
 ```sh
-pip install -i https://test.pypi.org/simple/ openize-markitdown
+pip install openize-markitdown
 ```
 
 ## Usage
