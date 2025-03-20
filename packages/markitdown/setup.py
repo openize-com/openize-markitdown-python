@@ -16,7 +16,7 @@ def install_if_missing(package, module_name=None):
 
 # List of dependencies
 dependencies = [
-    ("aspose-cells", "asposecells"),
+    ("aspose-cells-python", "asposecellspython"),
     ("aspose-words", "asposewords"),
     ("aspose-slides", "asposeslides")
 ]
