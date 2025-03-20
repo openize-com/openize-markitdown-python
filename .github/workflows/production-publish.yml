@@ -33,10 +33,10 @@ jobs:
       - name: Mask API Token
         run: echo "::add-mask::$PYPI_API_TOKEN"
 
-      - name: Publish to TestPyPI
+      - name: Publish to PyPI
         working-directory: packages/markitdown # Change to the correct directory
         env:
-          TEST_PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           python -m twine upload --repository pypi dist/* \
             --username __token__ --password $PYPI_API_TOKEN
