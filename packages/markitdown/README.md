@@ -1,10 +1,10 @@
-# Openize.MarkItDown
+# Openize.MarkItDown for Python
 
 ![Python Version](https://img.shields.io/badge/python-3.12+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 
-Openize.MarkItDown is a Python package that converts documents into Markdown format. It supports multiple file formats, provides flexible output handling, and integrates with LLMs for extended processing.
+Openize.MarkItDown for Python converts documents into Markdown format. It supports multiple file formats, provides flexible output handling, and integrates with LLMs for extended processing.
 
 ## Features
 
@@ -29,7 +29,7 @@ You'll need to obtain valid licenses for these libraries separately. The package
 ### From TestPyPI
 
 ```sh
-pip install openize-markitdown
+pip install openize-markitdown-python
 ```
 
 ## Usage
