@@ -48,8 +48,10 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
     parser = argparse.ArgumentParser(description="Convert documents to Markdown.")
-    parser.add_argument("input_file", help="Path to the input document (PDF, Word, etc.)")
-    parser.add_argument("-o", "--output-dir", required=True, help="Directory to save the converted Markdown file")
+    input_group = parser.add_mutually_exclusive_group(required=True)
+    input_group.add_argument("--input-file", help="Path to the input document (PDF, Word, etc.)")
+    input_group.add_argument("--input-dir", help="Path to a directory containing supported documents")
+    parser.add_argument("-o", "--output-dir", required=True, help="Directory to save the converted Markdown file(s)")
     parser.add_argument("--insert-into-llm", action="store_true", help="Insert output into LLM")
 
     args = parser.parse_args()
@@ -66,14 +68,15 @@ def main():
             ensure_env_variable("OPENAI_API_KEY", "Enter your OpenAI API key: ")
             ensure_env_variable("OPENAI_MODEL", "Enter OpenAI model name (default: gpt-4): ", default="gpt-4")
 
-        # Run conversion
+        # Run conversion for either a single file or a directory
         markitdown = MarkItDown(args.output_dir)
-        markitdown.convert_document(args.input_file, args.insert_into_llm)
+
+        if args.input_file:
+            markitdown.convert_document(args.input_file, args.insert_into_llm)
+        elif args.input_dir:
+            markitdown.convert_directory(args.input_dir, args.insert_into_llm)
 
     except Exception as e:
         logging.error(f"Error: {e}", exc_info=True)
         sys.exit(1)
 
-
-if __name__ == "__main__":
-    main()
