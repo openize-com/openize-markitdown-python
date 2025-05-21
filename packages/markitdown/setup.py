@@ -18,7 +18,9 @@ def install_if_missing(package, module_name=None):
 dependencies = [
     ("aspose-cells-python", "asposecellspython"),
     ("aspose-words", "asposewords"),
-    ("aspose-slides", "asposeslides")
+    ("aspose-slides", "asposeslides"),
+    ("openai", "openai"),
+    ("anthropic", "anthropic"),
 ]
 
 # Install missing dependencies before proceeding
