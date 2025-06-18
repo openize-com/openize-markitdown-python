@@ -48,8 +48,8 @@ def main():
     input_group.add_argument("--input-file", help="Path to the input document (PDF, Word, etc.)")
     input_group.add_argument("--input-dir", help="Path to a directory containing supported documents")
     parser.add_argument("-o", "--output-dir", required=True, help="Directory to save the converted Markdown file(s)")
-    parser.add_argument("--llm", choices=["none", "openai", "claude"], default="none",
-                        help="Choose LLM client to process output (none, openai, claude)")
+    parser.add_argument("--llm", choices=["none", "openai", "claude", "gemini", "mistral"], default="none",
+                        help="Choose LLM client to process output")
 
     args = parser.parse_args()
 
@@ -67,6 +67,13 @@ def main():
         elif args.llm == "claude":
             ensure_env_variable("CLAUDE_API_KEY", "Enter your Claude API key: ")
             ensure_env_variable("CLAUDE_MODEL", "Enter Claude model name (default: claude-v1): ", default="claude-v1")
+        elif args.llm == "gemini":
+            ensure_env_variable("GEMINI_API_KEY", "Enter your Gemini API key: ")
+            ensure_env_variable("GEMINI_MODEL", "Enter Gemini model name (default: gemini-pro): ", default="gemini-pro")
+        elif args.llm == "mistral":
+            ensure_env_variable("MISTRAL_API_KEY", "Enter your Mistral API key: ")
+            ensure_env_variable("MISTRAL_MODEL", "Enter Mistral model name (default: mistral-medium): ",
+                                default="mistral-medium")
 
         # Initialize MarkItDown with selected LLM
         llm_client_name = args.llm if args.llm != "none" else None
