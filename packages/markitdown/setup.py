@@ -21,6 +21,10 @@ dependencies = [
     ("aspose-slides", "asposeslides"),
     ("openai", "openai"),
     ("anthropic", "anthropic"),
+    ("requests", "requests"),  # Required for Gemini/Mistral REST API
+    # Optional SDKs (uncomment if using them instead of raw HTTP)
+    # ("google-generativeai", "google.generativeai"),
+    # ("mistralai", "mistralai"),
 ]
 
 # Install missing dependencies before proceeding

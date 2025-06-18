@@ -4,12 +4,12 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 
-Openize.MarkItDown for Python converts documents into Markdown format. It supports multiple file formats, provides flexible output handling, and integrates with LLMs for extended processing.
+Openize.MarkItDown for Python converts documents into Markdown format. It supports multiple file formats, provides flexible output handling, and integrates with popular LLMs for post-processing, including OpenAI, Claude, Gemini, and Mistral.
 
 ## Features
 
 - Convert `.docx`, `.pdf`, `.xlsx`, and `.pptx` to Markdown.
-- Save Markdown files locally or send them to an LLM for processing.
+- Save Markdown files locally or send them to an LLM (OpenAI, Claude, Gemini, Mistral).
 - Structured with the **Factory & Strategy Pattern** for scalability.
 - Works with Windows and Linux-compatible paths.
 - Command-line interface for easy use.
@@ -24,11 +24,15 @@ This package depends on the Aspose libraries, which are commercial products:
 
 You'll need to obtain valid licenses for these libraries separately. The package will install these dependencies, but you're responsible for complying with Aspose's licensing terms.
 
+LLM integration may require the following additional packages or valid API credentials:
+
+- `openai` (for OpenAI)
+- `anthropic` (for Claude)
+- `requests` (used for Gemini and Mistral REST APIs)
+
 ## Installation
 
-### From TestPyPI
-
-```sh
+```bash
 pip install openize-markitdown-python
 ```
 
@@ -36,12 +40,15 @@ pip install openize-markitdown-python
 
 ### Command Line Interface
 
-```sh
+```bash
 # Convert a file and save locally
 markitdown document.docx -o output_folder
 
-# Process with an LLM (requires OPENAI_API_KEY environment variable)
-markitdown document.docx -o output_folder --insert_into_llm
+# Process with an LLM (requires appropriate API key)
+markitdown document.docx -o output_folder --llm openai
+markitdown document.docx -o output_folder --llm claude
+markitdown document.docx -o output_folder --llm gemini
+markitdown document.docx -o output_folder --llm mistral
 ```
 
 ### Python API
@@ -49,48 +56,53 @@ markitdown document.docx -o output_folder --insert_into_llm
 ```python
 from openize.markitdown.core import MarkItDown
 
-# Define input file and output directory
 input_file = "report.pdf"
 output_dir = "output_markdown"
 
-# Create MarkItDown instance
-converter = MarkItDown(output_dir)
+converter = MarkItDown(output_dir, llm_client_name="gemini")
+converter.convert_document(input_file)
 
-# Convert document and send output to LLM
-converter.convert_document(input_file, insert_into_llm=True)
-
-print("Conversion completed and data sent to LLM.")
-
+print("Conversion completed and data sent to Gemini.")
 ```
 
 ## Environment Variables
 
-- `ASPOSE_LICENSE_PATH`: Required when using the Aspose Paid APIs. This should be set to the full path of your Aspose license file.
-- `OPENAI_API_KEY`: Required when using the `insert_into_llm=True` option or the `--llm` flag.
-- `OPENAI_MODEL`: Specifies the OpenAI model name (default: `gpt-4`).
+The following environment variables are used to control license and LLM access:
 
-To set these variables:
+| Variable            | Description                                                |
+|---------------------|------------------------------------------------------------|
+| `ASPOSE_LICENSE_PATH` | Required to activate Aspose license (if using paid APIs)  |
+| `OPENAI_API_KEY`     | Required for OpenAI integration                            |
+| `OPENAI_MODEL`       | (Optional) OpenAI model name (default: `gpt-4`)            |
+| `CLAUDE_API_KEY`     | Required for Claude integration                            |
+| `CLAUDE_MODEL`       | (Optional) Claude model name (default: `claude-v1`)        |
+| `GEMINI_API_KEY`     | Required for Gemini integration                            |
+| `GEMINI_MODEL`       | (Optional) Gemini model name (default: `gemini-pro`)       |
+| `MISTRAL_API_KEY`    | Required for Mistral integration                           |
+| `MISTRAL_MODEL`      | (Optional) Mistral model name (default: `mistral-medium`)  |
 
-For Unix-based systems:
+### Setting Environment Variables
 
+**Unix-based (Linux/macOS):**
 ```bash
 export ASPOSE_LICENSE_PATH="/path/to/license"
-export OPENAI_API_KEY="your-api-key"
-export OPENAI_MODEL="gpt-4"
+export OPENAI_API_KEY="your-openai-key"
+export CLAUDE_API_KEY="your-claude-key"
+export GEMINI_API_KEY="your-gemini-key"
+export MISTRAL_API_KEY="your-mistral-key"
 ```
 
-For Windows (PowerShell):
-
+**Windows PowerShell:**
 ```powershell
 $env:ASPOSE_LICENSE_PATH = "C:\path\to\license"
-$env:OPENAI_API_KEY = "your-api-key"
-$env:OPENAI_MODEL = "gpt-4"
+$env:OPENAI_API_KEY = "your-openai-key"
+$env:CLAUDE_API_KEY = "your-claude-key"
+$env:GEMINI_API_KEY = "your-gemini-key"
+$env:MISTRAL_API_KEY = "your-mistral-key"
 ```
 
 ## License
 
 This package is licensed under the MIT License. However, it depends on Aspose libraries, which are proprietary, closed-source libraries.
 
-⚠️ Users must obtain a valid license for Aspose libraries separately. This repository does not include or distribute any proprietary components.
-
-
+⚠️ You must obtain valid licenses for Aspose libraries separately. This repository does not include or distribute any proprietary components.

@@ -81,6 +81,86 @@ class ClaudeClient(LLMStrategy):
         except Exception as e:
             logging.exception(f"Unexpected error processing {md_file}: {e}")
 
+class GeminiClient(LLMStrategy):
+    def __init__(self):
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        self.model = os.getenv("GEMINI_MODEL", "gemini-pro")
+
+        if not self.api_key:
+            raise ValueError("Missing Gemini API key. Please set it in the environment.")
+
+        self.api_url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
+
+    def process(self, md_file):
+        try:
+            import requests
+
+            with open(md_file, "r", encoding="utf-8") as file:
+                content = file.read()
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.api_key}"
+            }
+            data = {
+                "contents": [
+                    {"parts": [{"text": content}]}
+                ]
+            }
+
+            response = requests.post(self.api_url, headers=headers, json=data)
+            response.raise_for_status()
+
+            reply = response.json()
+            text = reply["candidates"][0]["content"]["parts"][0]["text"]
+            logging.info(f"Gemini Response for {md_file}: {text}")
+
+        except FileNotFoundError:
+            logging.error(f"Markdown file not found: {md_file}")
+        except Exception as e:
+            logging.exception(f"Gemini processing error: {e}")
+class MistralClient(LLMStrategy):
+    def __init__(self):
+        self.api_key = os.getenv("MISTRAL_API_KEY")
+        self.model = os.getenv("MISTRAL_MODEL", "mistral-medium")
+
+        if not self.api_key:
+            raise ValueError("Missing Mistral API key. Please set it in the environment.")
+
+        self.api_url = "https://api.mistral.ai/v1/chat/completions"
+
+    def process(self, md_file):
+        try:
+            import requests
+
+            with open(md_file, "r", encoding="utf-8") as file:
+                content = file.read()
+
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json"
+            }
+            data = {
+                "model": self.model,
+                "messages": [
+                    {"role": "system", "content": "Process this Markdown content."},
+                    {"role": "user", "content": content}
+                ]
+            }
+
+            response = requests.post(self.api_url, headers=headers, json=data)
+            response.raise_for_status()
+
+            result = response.json()
+            message = result["choices"][0]["message"]["content"]
+            logging.info(f"Mistral Response for {md_file}: {message}")
+
+        except FileNotFoundError:
+            logging.error(f"Markdown file not found: {md_file}")
+        except Exception as e:
+            logging.exception(f"Mistral processing error: {e}")
+
+
 class LLMFactory:
     @staticmethod
     def get_llm(client_name: str) -> LLMStrategy:
@@ -89,5 +169,10 @@ class LLMFactory:
             return OpenAIClient()
         elif client_name == "claude":
             return ClaudeClient()
+        elif client_name == "gemini":
+            return GeminiClient()
+        elif client_name == "mistral":
+            return MistralClient()
         else:
             raise ValueError(f"Unknown LLM client: {client_name}")
+
