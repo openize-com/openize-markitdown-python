@@ -40,15 +40,29 @@ pip install openize-markitdown-python
 
 ### Command Line Interface
 
-```bash
-# Convert a file and save locally
-markitdown document.docx -o output_folder
+You can use the `markitdown` CLI to convert a single document or a folder of documents into Markdown format. You can also optionally send the converted Markdown to a supported LLM for post-processing.
 
-# Process with an LLM (requires appropriate API key)
-markitdown document.docx -o output_folder --llm openai
-markitdown document.docx -o output_folder --llm claude
-markitdown document.docx -o output_folder --llm gemini
-markitdown document.docx -o output_folder --llm mistral
+#### Convert a Single File
+
+```bash
+markitdown --input-file d:\test.docx -o d:\output_folder
+```
+
+#### Convert a Folder of Documents
+
+```bash
+markitdown --input-dir d:\docs -o d:\output_folder
+```
+
+#### Use an LLM to Post-process Output
+
+These commands require you to set the appropriate environment variables or provide API keys when prompted:
+
+```bash
+markitdown --input-file d:\test.docx -o d:\output_folder --llm openai
+markitdown --input-file d:\test.docx -o d:\output_folder --llm claude
+markitdown --input-file d:\test.docx -o d:\output_folder --llm gemini
+markitdown --input-file d:\test.docx -o d:\output_folder --llm mistral
 ```
 
 ### Python API
