@@ -8,7 +8,7 @@ __version__ = "25.3.0"
 from .processor import DocumentProcessor
 from .converters import WordConverter, PDFConverter, ExcelConverter, PowerPointConverter
 from .factory import ConverterFactory
-from .llm_strategy import SaveLocally, InsertIntoLLM
+from .llm_strategy import SaveLocally, LLMFactory
 from .license_manager import LicenseManager
 
 __all__ = [
@@ -19,6 +19,6 @@ __all__ = [
     'PowerPointConverter',
     'ConverterFactory',
     'SaveLocally',
-    'InsertIntoLLM',
+    'LLMFactory',
     'LicenseManager',
 ]

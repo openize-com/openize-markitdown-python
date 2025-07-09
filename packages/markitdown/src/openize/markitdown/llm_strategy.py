@@ -1,5 +1,6 @@
 import logging
 import os
+from anthropic import Anthropic
 from abc import ABC, abstractmethod
 import openai
 
@@ -55,32 +56,33 @@ class OpenAIClient(LLMStrategy):
 class ClaudeClient(LLMStrategy):
     def __init__(self):
         self.api_key = os.getenv("CLAUDE_API_KEY")
-        self.model = os.getenv("CLAUDE_MODEL", "claude-v1")
+        self.model = os.getenv("CLAUDE_MODEL", "claude-3-opus-20240229")  # update to your model
 
         if not self.api_key:
             raise ValueError("Missing Claude API key. Please set it in the environment.")
 
-        # Initialize Claude client here (replace with actual SDK code)
-        # self.client = ClaudeAPIClient(api_key=self.api_key)
+        self.client = Anthropic(api_key=self.api_key)
 
     def process(self, md_file):
         try:
             with open(md_file, "r", encoding="utf-8") as file:
                 content = file.read()
 
-            # Replace with actual Claude API call
-            # response = self.client.complete(prompt=content, model=self.model)
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=1024,
+                messages=[
+                    {"role": "user", "content": content}
+                ]
+            )
 
-            # Dummy placeholder response
-            response_text = f"Simulated Claude response for {md_file}"
-
-            logging.info(f"Claude Response for {md_file}: {response_text}")
+            message = response.content[0].text if response.content else ""
+            logging.info(f"Claude Response for {md_file}: {message}")
 
         except FileNotFoundError:
             logging.error(f"Markdown file not found: {md_file}")
         except Exception as e:
             logging.exception(f"Unexpected error processing {md_file}: {e}")
-
 class GeminiClient(LLMStrategy):
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
