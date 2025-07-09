@@ -100,6 +100,47 @@ $env:CLAUDE_API_KEY = "your-claude-key"
 $env:GEMINI_API_KEY = "your-gemini-key"
 $env:MISTRAL_API_KEY = "your-mistral-key"
 ```
+## Running Tests
+
+To run unit tests for **Openize.MarkItDown**, follow these steps:
+
+### 1. Navigate to the package directory
+
+From the root of the repository, change into the package directory:
+
+```bash
+cd openize-markitdown/packages/markitdown
+```
+
+### 2. Install test dependencies
+
+Make sure `pytest` and `pytest-mock` are installed:
+
+```bash
+pip install pytest pytest-mock
+```
+
+### 3. Run tests using `pytest`
+
+To run all tests:
+
+```bash
+pytest
+```
+
+To run a specific test file:
+
+```bash
+pytest tests/test.py
+```
+
+### Tip
+
+Use `-v` for more detailed test output:
+
+```bash
+pytest -v
+```
 
 ## License
 
